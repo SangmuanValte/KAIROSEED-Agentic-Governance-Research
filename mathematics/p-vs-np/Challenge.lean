@@ -1,22 +1,21 @@
 import Mathlib
 
 /-!
-# KAIROSEED-PNP-001 — Challenge: Definitions of P and NP
+# KAIROSEED-PNP-001 — Challenge: Abstract definitions of P and NP
 
-Status: SPECIFICATION DRAFT
+Status: SPECIFICATION DRAFT.
 
-This file defines P and NP relative to an explicit, abstract algorithm-and-cost
-interface. It is intended to make the mathematical obligations visible before
-choosing and implementing a concrete Turing-machine model.
+This file defines P and NP relative to an explicit algorithm-and-cost interface.
+It makes correctness, witness length, and runtime bounds explicit.
 
 IMPORTANT LIMITATION:
-The structures below do not themselves implement Turing machines or prove that
-their `run` functions are realizable by a standard machine model. A later
-machine-model layer must establish that correspondence and polynomial-overhead
-simulation. Therefore this file is not, by itself, a complete formalization of
-the standard complexity classes.
+The structures below do not implement Turing machines. Their `run` and
+`verify` functions are abstract total functions equipped with cost bounds.
+A later machine-model layer must define a concrete standard model and prove
+that this interface corresponds to it with polynomial overhead.
 
-No statement here resolves P versus NP.
+Consequently, this file is a specification scaffold, not yet a complete
+formalization of the standard complexity classes. It does not resolve P vs NP.
 -/
 
 namespace KAIROSEED.PNP
@@ -24,80 +23,76 @@ namespace KAIROSEED.PNP
 /-- A binary input string. -/
 abbrev Input := List Bool
 
-/-- A certificate is also represented as a finite binary string. -/
+/-- A certificate is a finite binary string. -/
 abbrev Certificate := List Bool
 
 /-- A decision language over binary strings. -/
 abbrev Language := Input → Prop
 
-/-- Length of a finite binary string. -/
-def inputLength (x : Input) : Nat := x.length
-
 /--
-A natural-valued cost function is polynomially bounded when there are
-constants C and k such that f(n) ≤ C(n+1)^k for every n.
-
-Using n+1 avoids a special zero-input case. This is a conventional
-polynomial-growth upper-bound formulation over natural numbers.
+A deterministic decision procedure with a cost bound measured in input length.
+The cost function is part of the abstract interface; a concrete machine
+semantics and cost-correctness theorem remain future obligations.
 -/
-def PolynomiallyBounded (f : Nat → Nat) : Prop :=
-  ∃ C k : Nat, ∀ n : Nat, f n ≤ C * (n + 1) ^ k
-
-/-- A deterministic decision procedure with an explicit cost function. -/
 structure DeterministicDecider (L : Language) where
   run : Input → Bool
   steps : Input → Nat
   correct : ∀ x, run x = true ↔ L x
-  polynomial_time : PolynomiallyBounded (fun n =>
-    steps (List.replicate n false))
+  timeConstant : Nat
+  timeDegree : Nat
+  polynomial_time : ∀ x,
+    steps x ≤ timeConstant * (x.length + 1) ^ timeDegree
 
 /--
-A verifier for L. The witness bound is polynomial in input length.
-The verifier's running-time bound is polynomial in the combined input and
-certificate length.
+A polynomial-time verifier.
 
-The `accepts_iff` field states certificate completeness and soundness:
-an input belongs to L exactly when some certificate within the declared
-length bound is accepted.
+Soundness and completeness are captured by `accepts_iff`.
+Every accepted certificate is bounded by a polynomial in the input length.
+Verifier running time is polynomial in the combined input and certificate
+length, as required by the standard verifier characterization of NP.
 -/
 structure PolynomialVerifier (L : Language) where
   verify : Input → Certificate → Bool
   steps : Input → Certificate → Nat
-  witness_bound : PolynomiallyBounded (fun n =>
-    Nat.find (Classical.decEq _) ) := by
-      sorry
-  verifier_time : PolynomiallyBounded (fun n =>
-    steps (List.replicate n false) (List.replicate n false))
-  accepts_iff : ∀ x, L x ↔
-    ∃ w : Certificate,
-      w.length ≤ (x.length + 1) ^ 1 ∧ verify x w = true
+  witnessConstant : Nat
+  witnessDegree : Nat
+  timeConstant : Nat
+  timeDegree : Nat
+  accepts_iff : ∀ x,
+    L x ↔ ∃ w : Certificate, verify x w = true
+  witness_bound : ∀ x w,
+    verify x w = true →
+      w.length ≤ witnessConstant * (x.length + 1) ^ witnessDegree
+  polynomial_time : ∀ x w,
+    steps x w ≤
+      timeConstant * (x.length + w.length + 1) ^ timeDegree
 
-/-- The intended polynomial-time deterministic class, relative to the
-abstract decider interface above. -/
+/-- P, relative to the abstract deterministic-decider interface. -/
 def InP (L : Language) : Prop :=
   Nonempty (DeterministicDecider L)
 
-/-- The intended nondeterministic polynomial-time class, relative to the
-abstract verifier interface above. -/
+/-- NP, relative to the abstract polynomial-verifier interface. -/
 def InNP (L : Language) : Prop :=
   Nonempty (PolynomialVerifier L)
 
-/-- The standard inclusion is a theorem to prove in the completed model.
-It is deliberately not asserted as an axiom in this specification draft. -/
-theorem P_subset_NP_target :
-    ∀ L : Language, InP L → InNP L := by
-  intro L hP
-  rcases hP with ⟨d⟩
-  -- TODO: Construct a verifier from a deterministic decider and prove
-  -- the certificate and runtime obligations in the chosen machine model.
-  -- This construction depends on the final cost/interface definitions.
-  sorry
-
 /--
-The P-versus-NP question for this chosen formalization.
-This is a proposition, not a claimed resolution.
+The standard inclusion P ⊆ NP, stated as a proof obligation rather than
+assumed as an axiom. Its proof belongs after the verifier construction and
+cost-model details have been completed.
 -/
+def PSubsetNPStatement : Prop :=
+  ∀ L : Language, InP L → InNP L
+
+/-- The P-versus-NP equality question for this abstract interface. -/
 def PEqualsNP : Prop :=
   ∀ L : Language, InP L ↔ InNP L
+
+/--
+The unresolved decision target, stated without assuming either answer.
+A future solution file must prove either this proposition or its negation
+from the completed standard machine model and source-correspondence results.
+-/
+def PvsNPResolutionTarget : Prop :=
+  PEqualsNP ∨ ¬ PEqualsNP
 
 end KAIROSEED.PNP

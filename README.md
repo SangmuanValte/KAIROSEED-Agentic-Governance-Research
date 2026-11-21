@@ -66,9 +66,9 @@ Start with:
 
 Negative findings must be retained, not silently removed after a redesign. In particular, R-08 and MUTATED_UNLOGGED require original test conditions, observed outcomes, corrective changes, and regression evidence before any resolution claim is made.
 
-## License and reuse
+## Licensing governance and reuse
 
-No license is asserted by this initial documentation commit. Add a license only after deciding the intended reuse and contribution terms.
+No repository-wide license is asserted by this initial documentation commit. Candidate classifications are not license grants. Ownership, provenance, third-party rights, and licensing authority must be reviewed before any license is applied. See the [licensing governance index](licensing/README.md), [repository audit](licensing/KAIROSEED-LIC-002-REPOSITORY-AUDIT.md), [manifest verification specification](licensing/KAIROSEED-LIC-003-MANIFEST-VERIFICATION-SPECIFICATION.md), and [provenance specification](licensing/KAIROSEED-PROV-001-PROVENANCE-SPECIFICATION.md).
 
 ## Research disposition
 

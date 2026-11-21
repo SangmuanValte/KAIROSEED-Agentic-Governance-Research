@@ -1,0 +1,166 @@
+{
+  "schema": "kairoseed-licensing-manifest",
+  "schema_version": "1.0",
+  "format_profile": "json-compatible-yaml",
+  "policy": {
+    "id": "KAIROSEED-LIC-001",
+    "version": "1.1",
+    "status": "ADOPTED_BASELINE_AS_RECORDED",
+    "implementation_status": "NOT_IMPLEMENTED"
+  },
+  "repository": {
+    "full_name": "SangmuanValte/KAIROSEED-Agentic-Governance-Research",
+    "audited_ref": "main",
+    "inventory_status": "PARTIAL_DIRECT_FETCH",
+    "inventory_note": "Eight known Markdown paths were retrieved. Complete tracked-file inventory must be generated from git ls-files at a pinned commit."
+  },
+  "semantics": {
+    "candidate_license_is_not_grant": true,
+    "ownership_is_not_inferred": true,
+    "unknown_paths_fail_closed": true,
+    "third_party_material_keeps_original_terms": true
+  },
+  "classification_rules": [
+    {
+      "id": "third-party-and-vendored",
+      "priority": 1000,
+      "patterns": [
+        "third_party/**",
+        "vendor/**",
+        "THIRD_PARTY/**",
+        "**/NOTICE",
+        "**/NOTICE.*",
+        "**/COPYING",
+        "**/COPYING.*",
+        "**/LICENSE",
+        "**/LICENSE.*",
+        "LICENSE",
+        "LICENSE.*",
+        "NOTICE",
+        "NOTICE.*",
+        "COPYING",
+        "COPYING.*"
+      ],
+      "classification": "third-party-or-license-record",
+      "candidate_spdx": null,
+      "provenance_status": "THIRD_PARTY_REVIEW_REQUIRED",
+      "license_authorization": "NOT_AUTHORIZED",
+      "action": "BLOCK_AUTOMATIC_ASSIGNMENT"
+    },
+    {
+      "id": "lean-original-candidate",
+      "priority": 500,
+      "patterns": [
+        "**/*.lean",
+        "*.lean"
+      ],
+      "classification": "lean-formalization",
+      "candidate_spdx": "CC-BY-4.0",
+      "provenance_status": "UNREVIEWED",
+      "license_authorization": "NOT_AUTHORIZED",
+      "action": "REQUIRES_ARTIFACT_PROVENANCE"
+    },
+    {
+      "id": "software-original-candidate",
+      "priority": 400,
+      "patterns": [
+        "src/**/*.py",
+        "src/**/*.js",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.go",
+        "src/**/*.rs",
+        "src/**/*.c",
+        "src/**/*.cpp",
+        "src/**/*.h",
+        "src/**/*.hpp",
+        "src/**/*.java",
+        "src/**/*.kt",
+        "src/**/*.cs",
+        "src/**/*.rb",
+        "src/**/*.php",
+        "tests/**/*.py",
+        "tests/**/*.js",
+        "tests/**/*.ts",
+        "test/**/*.py",
+        "test/**/*.js",
+        "test/**/*.ts",
+        "tools/*.py",
+        "tests/*.py",
+        "test/*.py",
+        "src/*.py",
+        "src/*.js",
+        "src/*.ts",
+        "src/*.tsx",
+        "src/*.go",
+        "src/*.rs",
+        "src/*.c",
+        "src/*.cpp",
+        "src/*.h",
+        "src/*.hpp",
+        "src/*.java",
+        "src/*.kt",
+        "src/*.cs",
+        "src/*.rb",
+        "src/*.php",
+        "tests/*.py",
+        "tests/*.js",
+        "tests/*.ts",
+        "test/*.py",
+        "test/*.js",
+        "test/*.ts"
+      ],
+      "classification": "software",
+      "candidate_spdx": "MIT",
+      "provenance_status": "UNREVIEWED",
+      "license_authorization": "NOT_AUTHORIZED",
+      "action": "REQUIRES_ARTIFACT_PROVENANCE"
+    },
+    {
+      "id": "known-research-documentation",
+      "priority": 300,
+      "patterns": [
+        "README.md",
+        "governance/claim-status-policy.md",
+        "manuscript/README.md",
+        "manuscript/abstract.md",
+        "traceability/CLAIM-REGISTER.md",
+        "traceability/EVIDENCE-REGISTER.md",
+        "traceability/REQUIREMENTS-REGISTER.md",
+        "traceability/TRACEABILITY-MATRIX.md",
+        "licensing/*.md",
+        "licensing/*.yaml"
+      ],
+      "classification": "research-and-governance-documentation-or-tooling",
+      "candidate_spdx": "CC-BY-4.0",
+      "provenance_status": "UNREVIEWED",
+      "license_authorization": "NOT_AUTHORIZED",
+      "action": "REQUIRES_ARTIFACT_PROVENANCE"
+    },
+    {
+      "id": "workflow-and-config-review",
+      "priority": 250,
+      "patterns": [
+        ".github/workflows/*.yml",
+        ".github/workflows/*.yaml",
+        "*.json",
+        "*.toml",
+        "*.ini",
+        "*.cfg",
+        ".github/workflows/licensing.yml"
+      ],
+      "classification": "configuration-or-automation-review",
+      "candidate_spdx": null,
+      "provenance_status": "UNREVIEWED",
+      "license_authorization": "NOT_AUTHORIZED",
+      "action": "REQUIRES_ARTIFACT_PROVENANCE"
+    }
+  ],
+  "unmatched_path_action": "FAIL_VALIDATION_AND_REQUIRE_REVIEW",
+  "implementation": {
+    "license_files_created": false,
+    "per_file_license_notices_added": false,
+    "retroactive_license_grant": false,
+    "production_or_release_authorization": false
+  }
+}

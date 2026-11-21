@@ -87,12 +87,4 @@ def PSubsetNPStatement : Prop :=
 def PEqualsNP : Prop :=
   ∀ L : Language, InP L ↔ InNP L
 
-/--
-The unresolved decision target, stated without assuming either answer.
-A future solution file must prove either this proposition or its negation
-from the completed standard machine model and source-correspondence results.
--/
-def PvsNPResolutionTarget : Prop :=
-  PEqualsNP ∨ ¬ PEqualsNP
-
 end KAIROSEED.PNP

@@ -146,7 +146,8 @@
         "*.json",
         "*.toml",
         "*.ini",
-        "*.cfg"
+        "*.cfg",
+        ".github/workflows/licensing.yml"
       ],
       "classification": "configuration-or-automation-review",
       "candidate_spdx": null,

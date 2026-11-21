@@ -1,7 +1,7 @@
 # Navier–Stokes Existence and Smoothness — Research Specification
 
 **Track ID:** KAIROSEED-NS-001  
-**Status:** PROPOSED; the unrestricted three-dimensional global regularity problem remains OPEN.
+**Status:** SPECIFICATION TRACK ACTIVE; OpenAI published a proof claim for Clay alternatives (C) and (D) on 8 September 2026. On 11 September 2026, the Clay Mathematics Institute announced that the problem had apparently been settled and that its evaluation process would be deliberately unhurried. KAIROSEED has not independently audited the proof or reproduced its Lean build. No prize determination is claimed here.
 
 ## 1. Source problem and scope
 
@@ -17,7 +17,7 @@ The source problem must specify the spatial domain (for example (mathbb R^3) or 
 
 For a chosen formulation, the initial velocity (u_0) must satisfy the declared admissibility conditions, including divergence-free and any required smoothness, integrability, decay, or periodicity conditions.
 
-This document does not claim global existence and smoothness, nor finite-time breakdown.
+This track does not claim authorship or independent verification of the externally published result. Its purpose is to formalize the source alternatives, inspect proof-to-source correspondence, reproduce the released formalization, audit assumptions and dependencies, and commission independent mathematical review.
 
 ## 2. Distinct mathematical questions
 
@@ -115,6 +115,36 @@ A kernel-accepted proof of a conditional lemma verifies that lemma under its ass
 - [ ] Target theorem contains no `sorry`, `admit`, or hidden target axiom.
 - [ ] Axiom audit, reproducible build, and independent review completed.
 
-## 7. Current conclusion
+## 7. External result and evaluation status (2026-11-21)
 
-The unrestricted three-dimensional Navier–Stokes existence and smoothness problem remains OPEN. This track is a specification and verification plan. No full global-regularity theorem or finite-time breakdown result is claimed.
+OpenAI published *Finite Time Blowup for Navier–Stokes* on 8 September 2026. The paper states a construction, for every positive viscosity, with smooth forcing and initially zero velocity, whose velocity becomes unbounded in finite time while kinetic energy remains uniformly bounded. It states that this establishes Fefferman's alternative (C) on the whole space and alternative (D) on the periodic domain. OpenAI also released a Lean formalization.
+
+On 11 September 2026, the Clay Mathematics Institute announced that the problem had apparently been settled and said that its evaluation process would be deliberately unhurried. That announcement is not a prize award or a public independent verification report.
+
+**KAIROSEED status:** external proof claim identified; primary-source materials identified; independent reproduction and mathematical review by this project NOT PERFORMED.
+
+- **Published claim:** OpenAI reports a proof of alternatives (C) and (D).
+- **Institutional status:** Clay announced apparent settlement and an evaluation process.
+- **KAIROSEED verification status:** NOT VERIFIED by this project.
+- **Prize status:** no award is claimed here.
+
+The unforced global-regularity alternatives (A) and (B) are distinct from the forced-breakdown alternatives (C) and (D). The published claim for (C)/(D) must not be misreported as a proof of unforced blowup.
+
+## 8. KAIROSEED verification work plan
+
+1. Freeze the authoritative Fefferman statement and map every hypothesis and conclusion to formal predicates.
+2. Retrieve the released Lean source and pin its exact commit, Lean toolchain, and Mathlib revision.
+3. Reproduce the build in a clean environment without modifying the upstream proof.
+4. Audit proof holes, axioms, theorem dependencies, imported assumptions, and any custom kernel or trust boundary.
+5. Map the analytical paper's lemmas to the Lean theorem graph and verify that the formal theorem proves the stated alternative.
+6. Independently check the admissibility of the initial data and forcing, the finite-time singularity conclusion, and the energy bound.
+7. Record limitations, failed checks, reviewer independence, and all evidence in the Evidence Register.
+
+No external proof is promoted to INDEPENDENTLY_VERIFIED merely because a Lean artifact is published or a model reports that its proof was checked.
+
+## 9. Sources
+
+- Charles L. Fefferman, [official Clay problem statement (PDF)](https://www.claymath.org/wp-content/uploads/2022/06/navierstokes.pdf).
+- OpenAI, [On the Navier–Stokes Millennium Prize Problem (8 September 2026)](https://openai.com/index/navier-stokes-solution/).
+- OpenAI, [Finite Time Blowup for Navier–Stokes (paper)](https://cdn.openai.com/pdf/32d9f210-8b73-45e0-91bc-82a30aef8a9a/navier-stokes.pdf).
+- Clay Mathematics Institute, [Navier–Stokes Announcement (11 September 2026)](https://www.claymath.org/news/navier-stokes-announcement/).

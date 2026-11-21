@@ -34,6 +34,8 @@ A conditional continuation theorem is not global regularity unless its condition
 
 ## 3. Proposed Lean pipeline
 
+A first source-alternative scaffold is now stored at [`Challenge.lean`](Challenge.lean). It records the quantifier structure of Fefferman's alternatives (A)–(D) through an explicit semantic interface. It is not yet a complete PDE formalization and has not been compiled or independently checked.
+
 ### `Challenge.lean`
 
 Encode the exact source problem without assuming its answer:

@@ -59,6 +59,8 @@ Statuses are scoped. A unit-test pass is not an independent verification. A proo
 | KRS-R-004 | Close formal proof obligations | Formal model, theorem statements, proof artifacts, assumption review | OPEN |
 | KRS-R-005 | Establish reproducible evaluation | Versioned environment, test protocols, raw outputs, replayable artifacts | OPEN |
 | KRS-R-006 | Demonstrate ledger completeness within declared threat model | Mutation-path coverage, fault injection, independent review | OPEN |
+| KRS-R-007 | Establish distributed replay protection | Atomic consume semantics, concurrency tests, persistence and recovery tests, consistency assumptions | OPEN |
+| KRS-R-008 | Establish receipt trust and anchoring | Canonicalization, signing/checkpoint model, truncation/replacement threat analysis | OPEN |
 
 ## 5. Evidence-link requirements
 

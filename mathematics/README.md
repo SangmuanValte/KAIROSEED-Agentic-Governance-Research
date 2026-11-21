@@ -13,19 +13,38 @@ This workstream develops a reproducible, evidence-bounded method for formalizing
 
 The workstream is about mathematical specification, proof development, validation, and verification. It does not assert that either problem has been solved.
 
+## Governing principle
+
+**Define computation first; measure it second; classify it third; prove complexity results last.**
+
+For the P vs NP track, this means the order of obligations is:
+
+1. Define the computational model: machine, configurations, tape, transition semantics, and halting states.
+2. Define finite computation traces and what counts as one computational step.
+3. Define input encoding and input length.
+4. Define resource bounds, including polynomial time.
+5. Define deterministic polynomial-time decision and nondeterministic/verifier-based polynomial-time decision.
+6. Prove correspondence with the intended standard complexity definitions and encoding conventions.
+7. Only then develop reductions, completeness results, and the P vs NP target.
+
+A complexity claim must not precede a precise account of the computation and cost model to which it refers.
+
 ## Files
 
 - [Shared Validation and Verification Protocol](verification-protocol.md)
 - [P vs NP Research Specification](p-vs-np/README.md)
+- [P vs NP Machine Model](p-vs-np/MachineModel.lean)
+- [P vs NP Challenge Scaffold](p-vs-np/Challenge.lean)
 - [Navier–Stokes Research Specification](navier-stokes/README.md)
 
-## Shared research pipeline
+## Shared mathematical validation pipeline
 
-`Source problem → Challenge.lean → Equivalence.lean → Solution.lean → kernel check → reproducible evidence → independent review`
+`Source problem → computational/mathematical model → Challenge.lean → Equivalence.lean → Solution.lean → kernel check → reproducible evidence → independent review`
 
 Each stage has a distinct burden:
 
 - **Source problem:** authoritative mathematical statement and scope.
+- **Model:** explicit objects, semantics, inputs, and cost measures appropriate to the problem.
 - **Challenge:** explicit definitions, hypotheses, quantifiers, and target theorem.
 - **Equivalence:** proof that the formal statement faithfully represents the source problem.
 - **Solution:** proof of the target theorem or a precisely formulated counterexample, without hiding the target in assumptions.
